@@ -9,10 +9,28 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UITextField *yearField;
+@property (weak, nonatomic) IBOutlet UITextField *monthField;
+@property (weak, nonatomic) IBOutlet UITextField *dayField;
 
 @end
 
 @implementation ViewController
+- (IBAction)pickerChanged:(id)sender {
+    NSLog(@"pickerChanged");
+    NSDate *selectedDate = self.datePicker.date;
+    
+    NSCalendar *calender = [NSCalendar currentCalendar];
+    NSInteger flag = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+    
+    NSDateComponents *comp = [calender components:flag fromDate:selectedDate];
+    
+    self.yearField.text = [NSString stringWithFormat: @"%d", [comp year]];
+    self.monthField.text = [NSString stringWithFormat: @"%d", [comp month]];
+    self.dayField.text = [NSString stringWithFormat: @"%d", [comp day]];
+    
+}
 
 - (void)viewDidLoad
 {
